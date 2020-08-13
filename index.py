@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import threading
 import client
 from client import client
 import server
@@ -19,9 +20,11 @@ while True:
     if event == sg.WIN_CLOSED:
         break
     if event == 'Send':
-        client(values, window)
+        print('Sending to new thread.')
+        threading.Thread(target=client, args=(values, window), daemon=True).start()
     if event == 'Receive':
-        server(values, window)
+        print('Sending to new thread.')
+        threading.Thread(target=server, args=(values, window), daemon=True).start()
 
 
 window.close()
