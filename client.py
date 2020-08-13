@@ -5,7 +5,7 @@ import tqdm
 def client(values, window):
     # Get info from GUI and Path
     host = values['-HOST-']
-    port = int(values['-PORT-'])
+    port = values['-PORT-']
 
     # Network values
     SEPERATOR = "<SEPARATOR>"
@@ -16,7 +16,9 @@ def client(values, window):
     
     print(filename)
     # Make sure file is something
-    if not os.path.isfile(filename):
+    if host == '' and port == '':
+        window['-STATE-'].update('Must specify host and port!')
+    elif not os.path.isfile(filename):
         window['-STATE-'].update('No file selected!')
     else:
         # Get filesize
@@ -25,7 +27,7 @@ def client(values, window):
         # Connect to server
         s = socket.socket()
         print(f"[+] Connecting to {host}:{port}")
-        s.connect((host, port))
+        s.connect((host, int(port)))
         print("[+] Connected")
 
         # Send file info

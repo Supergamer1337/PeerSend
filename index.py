@@ -9,7 +9,7 @@ layout = [  [sg.T('Current State:'), sg.T('not started upload/download', size=(8
             [sg.T('Host:'), sg.In(key='-HOST-'), sg.T('Port:'), sg.In(key='-PORT-')],
             [sg.T('Choose File')],
             [sg.In(), sg.FileBrowse(key='-FILE-')],
-            [sg.B('Client'), sg.B('Server')]   ]
+            [sg.B('Send'), sg.B('Receive')]   ]
 
 window = sg.Window('PeerSend', layout)
 
@@ -18,9 +18,9 @@ while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED:
         break
-    if event == 'Client':
+    if event == 'Send':
         client(values, window)
-    if event == 'Server':
+    if event == 'Receive':
         server(values, window)
 
 
